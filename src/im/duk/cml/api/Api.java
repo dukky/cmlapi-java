@@ -15,6 +15,8 @@
  ******************************************************************************/
 package im.duk.cml.api;
 
+import im.duk.cml.util.SkillFunc;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -45,7 +47,7 @@ public class Api {
 	 * 
 	 */
 	public static String updateReq(String player) {
-		player = sanitize(player);
+		player = replaceSpaces(player);
 		String req = "type=update&player=" + player;
 		return sendRequest(req);
 	}
@@ -60,7 +62,7 @@ public class Api {
 	 * 
 	 */
 	public static String lastCheckReq(String player) {
-		player = sanitize(player);
+		player = replaceSpaces(player);
 		String req = "type=lastcheck&player=" + player;
 		return sendRequest(req);
 	}
@@ -74,14 +76,14 @@ public class Api {
 	 * @return the time since the last data point, in seconds.
 	 */
 	public static String lastChangeReq(String player) {
-		player = sanitize(player);
+		player = replaceSpaces(player);
 		String req = "type=lastchange&player=" + player;
 		return sendRequest(req);
 	}
 
 	/**
-	 * Make a stats request, which gets the time of the most recent datapoint
-	 * and the xp and rank for each skill.
+	 * Make a stats request, updates the player, gets the time of the most
+	 * recent datapoint and the xp and rank for each skill.
 	 * 
 	 * @param player
 	 *            the player to make the request for.
@@ -94,7 +96,7 @@ public class Api {
 	 *         (xp[23]),(rank[23])
 	 */
 	public static String statsReq(String player) {
-		player = sanitize(player);
+		player = replaceSpaces(player);
 		String req = "type=stats&player=" + player;
 		return sendRequest(req);
 	}
@@ -108,7 +110,7 @@ public class Api {
 	 * @return the time remaning, in hours.
 	 */
 	public static String ttmReq(String player) {
-		player = sanitize(player);
+		player = replaceSpaces(player);
 		String req = "type=ttm&player=" + player;
 		return sendRequest(req);
 	}
@@ -122,8 +124,95 @@ public class Api {
 	 * @return the rank they are.
 	 */
 	public static String ttmRankReq(String player) {
-		player = sanitize(player);
+		player = replaceSpaces(player);
 		String req = "type=ttmrank&player=" + player;
+		return sendRequest(req);
+	}
+
+	/**
+	 * Get the players name as it is stored in the database.
+	 * 
+	 * @param player
+	 *            the player to make the request for.
+	 * @return the players name as formatted in the database.
+	 */
+	public static String formatNameReq(String player) {
+		player = replaceSpaces(player);
+		String req = "type=formatname&player=" + player;
+		return sendRequest(req);
+	}
+
+	/**
+	 * Search the names of players in the database.
+	 * 
+	 * @param player
+	 *            the part of name to search for.
+	 * @return how many players found, followed by a comma separated list of
+	 *         player names containing the search string.
+	 */
+	public static String searchReq(String player) {
+		player = replaceSpaces(player);
+		String req = "type=search&player=" + player;
+		return sendRequest(req);
+	}
+
+	/**
+	 * Get the record experience gains of a given player.
+	 * 
+	 * @param player
+	 *            the player to make the request for.
+	 * @return the records, in the format: <br/>
+	 *         OverallDayRecord,OverallDayRecordTime,OverallWeekRecord,
+	 *         OverallWeekRecordTime,OverallMonthRecord,OverallMonthRecordTime<br/>
+	 * <br/>
+	 *         AttackDayRecord,AttackDayRecordTime,AttackWeekRecord,
+	 *         AttackWeekRecordTime,AttackMonthRecord,AttackMonthRecordTime<br/>
+	 * <br/>
+	 *         ...<br/>
+	 */
+	public static String recordsOfPlayerReq(String player) {
+		player = replaceSpaces(player);
+		String req = "type=recordsofplayer&player=" + player;
+		return sendRequest(req);
+	}
+
+	/**
+	 * Updates the player and gets their latest track info.
+	 * 
+	 * @param player
+	 *            the player to track.
+	 * @param time
+	 *            the time period (backwards, starting from the present) to get
+	 *            data from, in seconds. time=0 means all time.
+	 * @return the xp change in the given time period, in the format: <br/>
+	 *         (Time of earliest cml datapoint)<br/>
+	 *         (xplatest[0]-xpearliest[0]),(ranklatest
+	 *         [0]-ranklatest[0]),(xpearliest[0])<br/>
+	 *         (xplatest[1]-xpearliest[1]),(ranklatest[1]-ranklatest[1]),(
+	 *         xpearliest[1])<br/>
+	 *         ...<br/>
+	 */
+	public static String trackReq(String player, int time) {
+		player = replaceSpaces(player);
+		String req = "type=track&player=" + player + "&time=" + time;
+		return sendRequest(req);
+	}
+
+	/**
+	 * Get the datapoints for the given player.
+	 * 
+	 * @param player
+	 *            the player to get the datapoints for.
+	 * @param time
+	 *            the time peroid (backwards, starting from the present) to get
+	 *            data from, in seconds. time=0 means all time.
+	 * @return the datapoints within the given time, in the format: <br/>
+	 *         timeOfUpdate
+	 *         skillxp[0],skillxp[1],...skillrank[0],skillrank[1],...
+	 */
+	public static String dataPointsReq(String player, int time) {
+		player = replaceSpaces(player);
+		String req = "type=datapoints&player=" + player + "&time=" + time;
 		return sendRequest(req);
 	}
 
@@ -145,13 +234,13 @@ public class Api {
 		}
 	}
 
-	private static String sanitize(String player) {
+	private static String replaceSpaces(String player) {
 		player = player.replace(' ', '_');
 		return player;
 	}
 
 	public static void main(String[] args) {
-		System.out.println(ttmRankReq("foot"));
+		System.out.println(trackReq("fOoT", SkillFunc.SECONDS_IN_WEEK));
 
 	}
 }
