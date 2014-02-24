@@ -240,7 +240,7 @@ public class Api {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(trackReq("fOoT", SkillFunc.SECONDS_IN_WEEK));
+		System.out.println(dataPointsReq("fOoT", SkillFunc.SECONDS_IN_DAY));
 
 	}
 }
