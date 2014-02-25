@@ -15,8 +15,6 @@
  ******************************************************************************/
 package im.duk.cml.api;
 
-import im.duk.cml.util.SkillFunc;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -216,6 +214,29 @@ public class Api {
 		return sendRequest(req);
 	}
 
+	/**
+	 * Get data on the number of players online on OSRS (generally <30 minutes
+	 * old).
+	 * 
+	 * @return the time (unix timestamp) at which the number was collected, and
+	 *         the number of players, in the format:<br/>
+	 *         <code>unixTimeStamp,noOofPlayers</code>
+	 */
+	public static String playersReq() {
+		String req = "type=players";
+		return sendRequest(req);
+	}
+
+	/**
+	 * Gets the current time on the crystalmathlabs server.
+	 * 
+	 * @return the time(unix timestamp).
+	 */
+	public static String timeReq() {
+		String req = "type=time";
+		return sendRequest(req);
+	}
+
 	private static String sendRequest(String req) {
 		try {
 			URLConnection conn = new URL("http://crystalmathlabs.com/tracker/api.php?" + req).openConnection();
@@ -240,7 +261,7 @@ public class Api {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(dataPointsReq("fOoT", SkillFunc.SECONDS_IN_DAY));
+		System.out.println(timeReq());
 
 	}
 }
