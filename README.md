@@ -29,3 +29,7 @@ public class CmlApiTest {
 	}
 }
 ```
+#####Outputs:
+
+    There are currently 20432 players online on Oldschool Runescape!
+
