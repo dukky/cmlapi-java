@@ -15,16 +15,19 @@ import im.duk.cml.util.SkillFunc;
 
 public class CmlApiTest {
 	public static void main(String[] args) {
-		String players = Api.playersReq();
-		
-		// Output is the same as the web api.
-		String[] playersSplit = players.split(",");
+		try {
+			String players = Api.playersReq();
+			String[] playersSplit = players.split(",");
 
-		// Make sure the request went through ok.
-		if (playersSplit.length == 2) {
-			System.out.println("There are currently " + playersSplit[1] + " players online on Oldschool Runescape!");
-		} else {
-			System.out.println(players);
+			// Make sure the request went through ok
+			if (playersSplit.length == 2) {
+				System.out
+						.println("There are currently " + playersSplit[1] + " players online on Oldschool Runescape!");
+			} else {
+				System.out.println(players);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }

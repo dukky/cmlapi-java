@@ -42,9 +42,12 @@ public class Api {
 	 *         RuneScape hiscores. 3 = Negative XP gain detected. 4 = Unknown
 	 *         error. 5 = This player has been updated within the last 60
 	 *         seconds. 6 = The player name was invalid.
+	 * @throws IOException
+	 *             when there is a problem with the network or the
+	 *             crystalmathlabs server can't be reached.
 	 * 
 	 */
-	public static String updateReq(String player) {
+	public static String updateReq(String player) throws IOException {
 		player = replaceSpaces(player);
 		String req = "type=update&player=" + player;
 		return sendRequest(req);
@@ -57,9 +60,12 @@ public class Api {
 	 * @param player
 	 *            the player to make the request for.
 	 * @return the time since the last data point, in seconds.
+	 * @throws IOException
+	 *             when there is a problem with the network or the
+	 *             crystalmathlabs server can't be reached.
 	 * 
 	 */
-	public static String lastCheckReq(String player) {
+	public static String lastCheckReq(String player) throws IOException {
 		player = replaceSpaces(player);
 		String req = "type=lastcheck&player=" + player;
 		return sendRequest(req);
@@ -72,8 +78,11 @@ public class Api {
 	 * @param player
 	 *            the player to make the request for.
 	 * @return the time since the last data point, in seconds.
+	 * @throws IOException
+	 *             when there is a problem with the network or the
+	 *             crystalmathlabs server can't be reached.
 	 */
-	public static String lastChangeReq(String player) {
+	public static String lastChangeReq(String player) throws IOException {
 		player = replaceSpaces(player);
 		String req = "type=lastchange&player=" + player;
 		return sendRequest(req);
@@ -92,8 +101,11 @@ public class Api {
 	 *         (xp[1]),(rank[1])<br/>
 	 *         ...<br/>
 	 *         (xp[23]),(rank[23])
+	 * @throws IOException
+	 *             when there is a problem with the network or the
+	 *             crystalmathlabs server can't be reached.
 	 */
-	public static String statsReq(String player) {
+	public static String statsReq(String player) throws IOException {
 		player = replaceSpaces(player);
 		String req = "type=stats&player=" + player;
 		return sendRequest(req);
@@ -106,8 +118,11 @@ public class Api {
 	 * @param player
 	 *            the player to make the request for.
 	 * @return the time remaning, in hours.
+	 * @throws IOException
+	 *             when there is a problem with the network or the
+	 *             crystalmathlabs server can't be reached.
 	 */
-	public static String ttmReq(String player) {
+	public static String ttmReq(String player) throws IOException {
 		player = replaceSpaces(player);
 		String req = "type=ttm&player=" + player;
 		return sendRequest(req);
@@ -120,8 +135,11 @@ public class Api {
 	 * @param player
 	 *            the player to make the request for.
 	 * @return the rank they are.
+	 * @throws IOException
+	 *             when there is a problem with the network or the
+	 *             crystalmathlabs server can't be reached.
 	 */
-	public static String ttmRankReq(String player) {
+	public static String ttmRankReq(String player) throws IOException {
 		player = replaceSpaces(player);
 		String req = "type=ttmrank&player=" + player;
 		return sendRequest(req);
@@ -133,8 +151,11 @@ public class Api {
 	 * @param player
 	 *            the player to make the request for.
 	 * @return the players name as formatted in the database.
+	 * @throws IOException
+	 *             when there is a problem with the network or the
+	 *             crystalmathlabs server can't be reached.
 	 */
-	public static String formatNameReq(String player) {
+	public static String formatNameReq(String player) throws IOException {
 		player = replaceSpaces(player);
 		String req = "type=formatname&player=" + player;
 		return sendRequest(req);
@@ -147,8 +168,11 @@ public class Api {
 	 *            the part of name to search for.
 	 * @return how many players found, followed by a comma separated list of
 	 *         player names containing the search string.
+	 * @throws IOException
+	 *             when there is a problem with the network or the
+	 *             crystalmathlabs server can't be reached.
 	 */
-	public static String searchReq(String player) {
+	public static String searchReq(String player) throws IOException {
 		player = replaceSpaces(player);
 		String req = "type=search&player=" + player;
 		return sendRequest(req);
@@ -167,8 +191,11 @@ public class Api {
 	 *         AttackWeekRecordTime,AttackMonthRecord,AttackMonthRecordTime<br/>
 	 * <br/>
 	 *         ...<br/>
+	 * @throws IOException
+	 *             when there is a problem with the network or the
+	 *             crystalmathlabs server can't be reached.
 	 */
-	public static String recordsOfPlayerReq(String player) {
+	public static String recordsOfPlayerReq(String player) throws IOException {
 		player = replaceSpaces(player);
 		String req = "type=recordsofplayer&player=" + player;
 		return sendRequest(req);
@@ -189,8 +216,11 @@ public class Api {
 	 *         (xplatest[1]-xpearliest[1]),(ranklatest[1]-ranklatest[1]),(
 	 *         xpearliest[1])<br/>
 	 *         ...<br/>
+	 * @throws IOException
+	 *             when there is a problem with the network or the
+	 *             crystalmathlabs server can't be reached.
 	 */
-	public static String trackReq(String player, int time) {
+	public static String trackReq(String player, int time) throws IOException {
 		player = replaceSpaces(player);
 		String req = "type=track&player=" + player + "&time=" + time;
 		return sendRequest(req);
@@ -207,8 +237,11 @@ public class Api {
 	 * @return the datapoints within the given time, in the format: <br/>
 	 *         timeOfUpdate
 	 *         skillxp[0],skillxp[1],...skillrank[0],skillrank[1],...
+	 * @throws IOException
+	 *             when there is a problem with the network or the
+	 *             crystalmathlabs server can't be reached.
 	 */
-	public static String dataPointsReq(String player, int time) {
+	public static String dataPointsReq(String player, int time) throws IOException {
 		player = replaceSpaces(player);
 		String req = "type=datapoints&player=" + player + "&time=" + time;
 		return sendRequest(req);
@@ -221,8 +254,11 @@ public class Api {
 	 * @return the time (unix timestamp) at which the number was collected, and
 	 *         the number of players, in the format:<br/>
 	 *         <code>unixTimeStamp,noOofPlayers</code>
+	 * @throws IOException
+	 *             when there is a problem with the network or the
+	 *             crystalmathlabs server can't be reached.
 	 */
-	public static String playersReq() {
+	public static String playersReq() throws IOException {
 		String req = "type=players";
 		return sendRequest(req);
 	}
@@ -231,13 +267,16 @@ public class Api {
 	 * Gets the current time on the crystalmathlabs server.
 	 * 
 	 * @return the time(unix timestamp).
+	 * @throws IOException
+	 *             when there is a problem with the network or the
+	 *             crystalmathlabs server can't be reached.
 	 */
-	public static String timeReq() {
+	public static String timeReq() throws IOException {
 		String req = "type=time";
 		return sendRequest(req);
 	}
 
-	private static String sendRequest(String req) {
+	private static String sendRequest(String req) throws IOException {
 		try {
 			URLConnection conn = new URL("http://crystalmathlabs.com/tracker/api.php?" + req).openConnection();
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -249,9 +288,9 @@ public class Api {
 			return result.trim();
 
 		} catch (MalformedURLException e) {
-			return "Malformed URL";
+			throw new RuntimeException(); // This shouldn't happen!
 		} catch (IOException e) {
-			return "Network error";
+			throw e;
 		}
 	}
 
@@ -261,7 +300,19 @@ public class Api {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(timeReq());
+		try {
+			String players = Api.playersReq();
+			String[] playersSplit = players.split(",");
 
+			// Make sure the request went through ok
+			if (playersSplit.length == 2) {
+				System.out
+						.println("There are currently " + playersSplit[1] + " players online on Oldschool Runescape!");
+			} else {
+				System.out.println(players);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
