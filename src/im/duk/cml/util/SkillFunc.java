@@ -28,6 +28,33 @@ public class SkillFunc {
 	public static final int SECONDS_IN_WEEK = SECONDS_IN_DAY * 7;
 	// 'months' on CML are always 31 days, as they are a rolling month
 	public static final int SECONDS_IN_MONTH = SECONDS_IN_DAY * 31;
+	
+	// Skill constants
+	public static final int OVERALL = 0;
+	public static final int ATTACK = 1;
+	public static final int DEFENCE = 2;
+	public static final int STRENGTH = 3;
+	public static final int HITPOINTS = 4;
+	public static final int RANGED = 5;
+	public static final int PRAYER = 6;
+	public static final int MAGIC = 7;
+	public static final int COOKING = 8;
+	public static final int WOODCUTTING = 9;
+	public static final int FLETCHING = 10;
+	public static final int FISHING = 11;
+	public static final int FIREMAKING = 12;
+	public static final int CRAFTING = 13;
+	public static final int SMITHING = 14;
+	public static final int MINING = 15;
+	public static final int HERBLORE = 16;
+	public static final int AGILITY = 17;
+	public static final int THEIVING = 18;
+	public static final int SLAYER = 19;
+	public static final int FARMING = 20;
+	public static final int RUNECRAFTING = 21;
+	public static final int HUNTER = 22;
+	public static final int CONSTRUCTION = 23;
+	public static final int EHP = 24;
 
 	/**
 	 * Get the virtual level of a skill, given the xp.
