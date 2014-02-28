@@ -18,21 +18,15 @@ public class CmlApiTest {
 		try {
 			String players = Api.playersReq();
 			String[] playersSplit = players.split(",");
-
-			// Make sure the request went through ok
-			if (playersSplit.length == 2) {
-				System.out
-						.println("There are currently " + playersSplit[1] + " players online on Oldschool Runescape!");
-			} else {
-				System.out.println(players);
-			}
+			String time = SkillFunc.timeToShortString(System.currentTimeMillis()/1000 - Integer.parseInt(playersSplit[0]));
+			System.out.println("As of " + time + " ago, there were " + playersSplit[1] + " players online on Oldschool Runescape!");
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println("Problem with the network: " + e.getMessage());
 		}
 	}
 }
 ```
 #####Outputs:
 
-    There are currently 20432 players online on Oldschool Runescape!
+    As of 1m7s ago, there were 18996 players online on Oldschool Runescape!
 

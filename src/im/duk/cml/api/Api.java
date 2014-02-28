@@ -15,6 +15,8 @@
  ******************************************************************************/
 package im.duk.cml.api;
 
+import im.duk.cml.util.SkillFunc;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -241,7 +243,8 @@ public class Api {
 	 *             when there is a problem with the network or the
 	 *             crystalmathlabs server can't be reached.
 	 */
-	public static String dataPointsReq(String player, int time) throws IOException {
+	public static String dataPointsReq(String player, int time)
+			throws IOException {
 		player = replaceSpaces(player);
 		String req = "type=datapoints&player=" + player + "&time=" + time;
 		return sendRequest(req);
@@ -278,8 +281,11 @@ public class Api {
 
 	private static String sendRequest(String req) throws IOException {
 		try {
-			URLConnection conn = new URL("http://crystalmathlabs.com/tracker/api.php?" + req).openConnection();
-			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			URLConnection conn = new URL(
+					"http://crystalmathlabs.com/tracker/api.php?" + req)
+					.openConnection();
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+					conn.getInputStream()));
 			String result = "";
 			String line;
 			while ((line = br.readLine()) != null) {
@@ -303,16 +309,10 @@ public class Api {
 		try {
 			String players = Api.playersReq();
 			String[] playersSplit = players.split(",");
-
-			// Make sure the request went through ok
-			if (playersSplit.length == 2) {
-				System.out
-						.println("There are currently " + playersSplit[1] + " players online on Oldschool Runescape!");
-			} else {
-				System.out.println(players);
-			}
+			String time = SkillFunc.timeToShortString(System.currentTimeMillis()/1000 - Integer.parseInt(playersSplit[0]));
+			System.out.println("As of " + time + " ago, there were " + playersSplit[1] + " players online on Oldschool Runescape!");
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println("Problem with the network: " + e.getMessage());
 		}
 	}
 }
