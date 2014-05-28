@@ -41,12 +41,13 @@ public class CmlApiDemo {
 			String[] expSplit = exp.split("\n");
 			String[] agilitySplit = expSplit[SkillFunc.AGILITY + 1].split(",");
 			String agilXp = NumberFormat.getInstance().format(Integer.parseInt(agilitySplit[0]));
-			System.out.println("Jebrim's current agility xp is " + agilXp + ".");
+			System.out.println("Hexis Jebrim's current agility xp is " + agilXp + ".");
 
 			// Get all the players in the database with names containing 'duk'
-			String names = Api.searchReq("duk");
+			String search = "duk";
+			String names = Api.searchReq(search);
 			String[] namesNoSplit = names.split(" ");
-			System.out.println(namesNoSplit[0] + " players have names containing 'duk': " + namesNoSplit[1]);
+			System.out.println(namesNoSplit[0] + " players have names containing "+ search + " : " + namesNoSplit[1]);
 
 		} catch (IOException e) {
 			System.err.println("Problem with the network: " + e.getMessage());
